@@ -7,10 +7,18 @@ authors:
 commands:
   resser:
     description: Перезагрузка сервера с таймером
-    usage: /resser [секунды]
+    usage: /resser [секунды/cancel]
     permission: twrestart.restart
   twrestart:
     description: Основная команда плагина TwRestart
     usage: /twrestart reload
     permission: twrestart.admin
     aliases: [twr]
+
+permissions:
+  twrestart.restart:
+    description: Позволяет запускать /resser [время].
+    default: op
+  twrestart.admin:
+    description: Позволяет использовать /twrestart reload и /resser cancel.
+    default: op

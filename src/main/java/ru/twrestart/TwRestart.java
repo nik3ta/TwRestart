@@ -49,12 +49,13 @@ public final class TwRestart extends JavaPlugin implements CommandExecutor, List
         FileConfiguration config = getConfig();
 
         if (command.getName().equalsIgnoreCase("resser")) {
-            if (!sender.hasPermission("twrestart.restart")) {
-                sender.sendMessage(color(config.getString("messages.no-permission")));
-                return true;
-            }
 
             if (args.length > 0 && args[0].equalsIgnoreCase("cancel")) {
+                if (!sender.hasPermission("twrestart.admin")) {
+                    sender.sendMessage(color(config.getString("messages.no-permission")));
+                    return true;
+                }
+
                 if (!isRestarting) {
                     sender.sendMessage(color(config.getString("messages.not-running")));
                     return true;
@@ -62,7 +63,11 @@ public final class TwRestart extends JavaPlugin implements CommandExecutor, List
 
                 cancelRestartTimer();
                 Bukkit.broadcastMessage(color(config.getString("messages.restart-cancelled")));
-                sender.sendMessage(color(config.getString("messages.restart-cancelled")));
+                return true;
+            }
+
+            if (!sender.hasPermission("twrestart.restart")) {
+                sender.sendMessage(color(config.getString("messages.no-permission")));
                 return true;
             }
 
